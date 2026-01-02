@@ -1,6 +1,6 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
-from datetime import datetime
+from airflow.providers.standard.operators.python import PythonOperator
+from airflow.providers.standard.operators.bash import BashOperator
 
 import logging
 
@@ -15,7 +15,14 @@ with DAG(
     is_paused_upon_creation=False,
 ) as dag:
 
-    hello = PythonOperator(
+    hello_from_python = PythonOperator(
         task_id="say_hello",
         python_callable=say_hello
     )
+
+    hello_from_bash = BashOperator(
+        task_id="say_hello_bash",
+        bash_command='echo "Hello from Airflow Bash Operator"'
+    )
+
+    hello_from_python >> hello_from_bash
