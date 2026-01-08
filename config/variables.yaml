@@ -1,0 +1,24 @@
+API:
+  URL: "https://api.api-onepiece.com/v2"
+  LANGUAGE: "en"
+  ENDPOINTS:
+    characters: "characters"
+    fruits: "fruits"
+    sagas: "sagas"
+    chapters: "chapters"
+    tomes: "tomes"
+    episodes: "episodes"
+    dials: "dials"
+    movies: "movies"
+    swords: "swords"
+    hakis: "hakis"
+    luffy_gears: "luffy-gears"
+    luffy_techniques: "luffy-techniques"
+    crews: "crews"
+    boats: "boats"
+    arcs: "arcs"
+    locations: "locates"
+
+INGESTION:
+  TIMEOUT_SECONDS: 30
+  RETRIES: 3
