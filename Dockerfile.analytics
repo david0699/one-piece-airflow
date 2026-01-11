@@ -1,0 +1,33 @@
+FROM eclipse-temurin:11-jdk
+
+# ---- Pin versions here ----
+ARG SPARK_VERSION=3.5.1
+ARG HADOOP_PROFILE=3
+ARG HIVE_VERSION=3.1.3
+
+ENV SPARK_HOME=/opt/spark
+ENV HIVE_HOME=/opt/hive
+ENV PATH="${SPARK_HOME}/bin:${HIVE_HOME}/bin:${PATH}"
+
+RUN apt-get update && apt-get install -y \
+    curl wget procps netcat-openbsd python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# ---- Install Spark ----
+RUN wget -q "https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_PROFILE}.tgz" \
+    && tar -xzf "spark-${SPARK_VERSION}-bin-hadoop${HADOOP_PROFILE}.tgz" \
+    && mv "spark-${SPARK_VERSION}-bin-hadoop${HADOOP_PROFILE}" "${SPARK_HOME}" \
+    && rm "spark-${SPARK_VERSION}-bin-hadoop${HADOOP_PROFILE}.tgz"
+
+# ---- Install Hive ----
+RUN wget -q "https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
+    && tar -xzf "apache-hive-${HIVE_VERSION}-bin.tar.gz" \
+    && mv "apache-hive-${HIVE_VERSION}-bin" "${HIVE_HOME}" \
+    && rm "apache-hive-${HIVE_VERSION}-bin.tar.gz"
+
+# Storage + jars mount points
+RUN mkdir -p /data/raw /data/curated /opt/spark-jars
+
+WORKDIR /opt
+
+CMD ["sleep", "infinity"]
