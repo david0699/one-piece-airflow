@@ -1,0 +1,23 @@
+name: Block PRs to main not from develop
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - main
+
+jobs:
+  enforce-develop-only:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR source branch
+        run: |
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Head branch: ${{ github.head_ref }}"
+
+          if [[ "${{ github.head_ref }}" != "develop" ]]; then
+            echo "ERROR - Pull requests to main must come from 'develop'"
+            exit 1
+          fi
+
+          echo "PR source branch is develop"
