@@ -1,5 +1,5 @@
 API:
-  URL: "https://api.api-onepiece.com/v2"
+  CONN_ID: "onepiece_api"
   LANGUAGE: "en"
   ENDPOINTS:
     characters: "characters"
