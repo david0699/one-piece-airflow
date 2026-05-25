@@ -9,7 +9,7 @@ import logging
 @dag(
     dag_id="onepiece_api_ingest_dag",
     start_date=datetime(2024, 1, 1),
-    schedule=None,
+    schedule="30 17 * * *",
     catchup=False,
 )
 def run_dag():
