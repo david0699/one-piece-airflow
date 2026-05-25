@@ -97,3 +97,18 @@ Keep one production DAG definition per file in `dags/`. Related DAGs may share n
 
 ### Consequences
 DAG discovery and maintenance are clearer, review diffs stay focused, and repository scaling is simpler as orchestration flows increase.
+
+## DEC-005 - Use XCom for Small Inter-Task Data Exchange
+
+- Date: 2026-05-25
+- Status: accepted
+- Scope: coding-conventions
+
+### Context
+Airflow tasks in this project need to share small runtime control data (for example, table lists, flags, and branch inputs) while keeping orchestration explicit and maintainable.
+
+### Decision
+Use XCom as the default mechanism to share small data between tasks. Keep payloads lightweight (for example, identifiers, lists of names, booleans, and short metadata) and do not use XCom for large datasets or full API payloads.
+
+### Consequences
+Task contracts remain explicit and easy to test, branching logic is clearer, and scheduler/database pressure is reduced by avoiding large XCom payloads.
