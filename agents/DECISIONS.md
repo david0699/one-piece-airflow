@@ -67,3 +67,33 @@ Never run `git rebase` (interactive or non-interactive) without explicit approva
 
 ### Consequences
 History-rewriting operations are blocked by default. Prefer non-rewriting alternatives unless owner approval is granted.
+
+## DEC-003 - Keep Spark/Hive Business Logic Outside Airflow Repo
+
+- Date: 2026-05-25
+- Status: accepted
+- Scope: architecture
+
+### Context
+The Airflow repository should focus on orchestration and avoid duplicating Spark or Hive processing code that belongs to the Scala/Spark project.
+
+### Decision
+Do not implement Spark or Hive business logic in this repository. Airflow DAGs may only orchestrate external jobs (for example, invoking a JAR with runtime args) and define workflow dependencies, retries, and schedules.
+
+### Consequences
+Spark/Hive transformation and DDL logic is maintained in the dedicated Scala/Spark repository. This repo keeps thinner DAGs, lower coupling, and smaller review surface for orchestration-only changes.
+
+## DEC-004 - One DAG Definition Per File for Scalability
+
+- Date: 2026-05-25
+- Status: accepted
+- Scope: coding-conventions
+
+### Context
+As orchestration grows, combining multiple DAG definitions in a single file reduces clarity and makes ownership, review, and change history harder to manage.
+
+### Decision
+Keep one production DAG definition per file in `dags/`. Related DAGs may share naming conventions and runtime variables, but each DAG should live in its own module.
+
+### Consequences
+DAG discovery and maintenance are clearer, review diffs stay focused, and repository scaling is simpler as orchestration flows increase.

@@ -6,8 +6,8 @@ This is a local Apache Airflow project for ingesting One Piece API data into mou
 
 Important project context is stored in:
 - `agents/ARCHITECTURE.md`
-- `agents/conventions.md`
-- `agents/runbook.md`
+- ~~`agents/conventions.md`~~
+- ~~`agents/runbook.md`~~
 - `agents/DECISIONS.md`
 - `agents/TASKS.md`
 
