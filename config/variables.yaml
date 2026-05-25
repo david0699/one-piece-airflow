@@ -22,3 +22,12 @@ API:
 INGESTION:
   TIMEOUT_SECONDS: 30
   RETRIES: 3
+
+BRONZE_HIVE:
+  DATABASE: "onepiece_bronze"
+  SPARK_SUBMIT_COMMAND: "docker exec analytics spark-submit"
+  JAR_PATH: "/opt/spark-jars/onepiece-hive-ddl-1.0.0.jar"
+  MAIN_CLASS: "Main"
+  BOOTSTRAP_MODE: "bootstrap_tables"
+  ADD_PARTITIONS_MODE: "add_daily_partitions"
+  EXTRA_ARGS: ""
